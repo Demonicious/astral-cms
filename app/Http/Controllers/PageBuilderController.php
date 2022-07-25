@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Storage;
 
 class PageBuilderController extends Controller
 {
+    public string $viewsDirectory = 'theme';
+
+    public function __construct() {
+        $this->viewsDirectory = config('astral-cms.theme')::$views;
+    }
+
     public function builder(Page $page) {
         $assets = $page->uploads;
         $assets = $assets && count($assets) ? json_encode($assets->map(fn($asset) => asset( 'storage/media/' . $asset->name ))) : '[]';
 
-        return view('builder', [
+        return view( $this->viewsDirectory . '.builder' , [
             'page'   => $page,
             'assets' => $assets
         ]);
@@ -62,6 +68,21 @@ class PageBuilderController extends Controller
     }
 
     public function extensions() {
+        $loadedExtensions = config('astral-cms.extensions');
         
+        $components = [];
+        $blocks     = [];
+
+        foreach($loadedExtensions as $extension) {
+            if(method_exists($extension, 'blocks'))
+                $blocks = array_merge($blocks, $extension::blocks());
+        }
+
+        return response(view('defaults.extensions', [
+            'components' => $components,
+            'blocks'     => $blocks
+        ]), 200, [
+            'Content-Type' => 'text/javascript'
+        ]);
     }
 }

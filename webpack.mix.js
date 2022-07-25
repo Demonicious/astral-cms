@@ -13,8 +13,7 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/js/app.js')
-    .css('resources/css/grapesjs.css', 'public/css/grapesjs.css')
-    .sass('resources/scss/app.scss', 'public/css/app.css');
+    .css('resources/css/grapesjs.css', 'public/css/grapesjs.css');
 
 mix.postCss('resources/css/app.css', 'public/css/theme.css', [
     require('tailwindcss')

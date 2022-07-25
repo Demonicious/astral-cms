@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class PageServiceController extends Controller
 {
+    public string $viewsDirectory = 'theme';
+
+    public function __construct() {
+        $this->viewsDirectory = config('astral-cms.theme')::$views;
+    }
+
     public function homepage() {
         $page = Page::where('route', '/')->first();
 
         abort_if(!$page, 404);
 
-        return view('layouts.default', [
+        return view($this->viewsDirectory . '.layout', [
             'page' => $page
         ]);
     }
@@ -22,7 +28,7 @@ class PageServiceController extends Controller
 
         abort_if(!$page, 404);
 
-        return view('layouts.default', [
+        return view($this->viewsDirectory . '.layout', [
             'page' => $page
         ]);
     }

@@ -10,6 +10,7 @@
 
     <script type="text/javascript">
         window.csrf            = '{{ csrf_token() }}';
+        window.astralChotaUrl  = '{{ asset("css/chota.css") }}';
         window.astralPageId    = '{{ $page->id }}';
         window.astralAdminUrl  = "{{ url(config('astral-cms.admin-path')) }}";
         window.astralStoreUrl  = "{{ route('page-builder-store',  [ 'page' => $page ]) }}";
@@ -20,6 +21,8 @@
             window.astralPageData = `{!! $page->data !!}`;
         @endif
     </script>
+
+    @yield('header')
 </head>
 
 <body>
@@ -29,7 +32,9 @@
 
     <main id="astral-cms-content"></main>
 
+    <script type="text/javascript" src="{{ route('page-builder-extensions') }}"></script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    @yield('footer')
 </body>
 
 </html>
