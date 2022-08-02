@@ -13,7 +13,7 @@ class StatsOverview extends BaseWidget
 
     protected function getCards(): array {
         return [
-            Card::make('Pages', Page::count())->description('Amount of Pages'),
+            // Card::make('Pages', Page::count())->description('Amount of Pages'),
             Card::make('Users', User::count())->description('Amount of Unique Users'),
         ];
     }

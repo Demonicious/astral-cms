@@ -21,15 +21,15 @@ if( File::exists( storage_path('bitflan/installed.stp') ) ) {
 
     Route::prefix(config('filament.path'))->middleware([Authenticate::class])->group(function() {
 
-        Route::get('/astral-page-builder/{page:id}',  [ PageBuilderController::class, 'builder'    ])->name('page-builder-edit');
-        Route::put('/astral-page-builder/{page:id}',  [ PageBuilderController::class, 'store'      ])->name('page-builder-store');
-        Route::post('/astral-page-builder/{page:id}', [ PageBuilderController::class, 'upload'     ])->name('page-builder-upload');
-        Route::get('/astral-page-builder-extensions', [ PageBuilderController::class, 'extensions' ])->name('page-builder-extensions');
+        // Route::get('/astral-page-builder/{page:id}',  [ PageBuilderController::class, 'builder'    ])->name('page-builder-edit');
+        // Route::put('/astral-page-builder/{page:id}',  [ PageBuilderController::class, 'store'      ])->name('page-builder-store');
+        // Route::post('/astral-page-builder/{page:id}', [ PageBuilderController::class, 'upload'     ])->name('page-builder-upload');
+        // Route::get('/astral-page-builder-extensions', [ PageBuilderController::class, 'extensions' ])->name('page-builder-extensions');
 
     });
 
-    Route::get('/',        [ PageServiceController::class, 'homepage' ])->name('homepage');
-    Route::get('/{route}', [ PageServiceController::class, 'route'    ])->name('route');
+    // Route::get('/',        [ PageServiceController::class, 'homepage' ])->name('homepage');
+    // Route::get('/{route}', [ PageServiceController::class, 'route'    ])->name('route');
 } else {
     Route::get('/', function() {
         return redirect(route('installer'));

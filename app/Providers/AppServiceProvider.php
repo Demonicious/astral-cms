@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Config::set('filament.path', config('astral-cms.admin-path'));
+
         Filament::registerPages([
             \App\Filament\Pages\Profile::class
         ]);
@@ -101,7 +103,5 @@ class AppServiceProvider extends ServiceProvider
                     $input->notify('danger', 'Please confirm the update.');
             });
         });
-
-        Config::set('filament.path', config('astral-cms.admin-path'));
     }
 }
