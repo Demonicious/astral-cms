@@ -33,13 +33,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                CreateTheme::class,
-                PublishTheme::class,
-                PublishDemo::class,
-            ]);
-        } elseif (empty(config('pagebuilder'))) {
+        if (! $this->app->runningInConsole() && empty(config('pagebuilder'))) {
             throw new Exception("No PHPageBuilder config found, please run: php artisan vendor:publish --provider=\"Demonicious\BladeBuilder\ServiceProvider\" --tag=config");
         }
 

@@ -3,35 +3,18 @@
 namespace Demonicious\BladeBuilder\Controllers;
 
 use App\Http\Controllers\Controller;
-use Demonicious\BladeBuilder\Models;
-use Demonicious\BladeBuilder\Models\BuilderPage;
-use Illuminate\Http\Request;
+use Demonicious\BladeBuilder\LaravelBladeBuilder;
 
 class PageServiceController extends Controller
 {
-    public string $viewsDirectory = 'theme';
+    public function handle() {
+        $builder = new LaravelBladeBuilder(config('pagebuilder'));
+        $hasPageReturned = $builder->handlePublicRequest();
 
-    public function __construct() {
-        $this->viewsDirectory = config('astral-cms.theme')::$views;
-    }
-
-    public function homepage() {
-        $page = BuilderPage::where('route', '/')->first();
-
-        abort_if(!$page, 404);
-
-        return view($this->viewsDirectory . '.layout', [
-            'page' => $page
-        ]);
-    }
-
-    public function route(?string $route) {
-        $page = BuilderPage::where('route', 'LIKE', '%' . $route)->first();
-
-        abort_if(!$page, 404);
-
-        return view($this->viewsDirectory . '.layout', [
-            'page' => $page
-        ]);
+        if (request()->path() === '/' && ! $hasPageReturned) {
+            return view('default-homepage');
+        } else if(!$hasPageReturned) {
+            abort(404);
+        }
     }
 }

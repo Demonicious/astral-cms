@@ -49,7 +49,7 @@ return [
      |
      */
     'auth' => [
-        'use_login' => true,
+        'use_login' => FALSE,
         'class' => \BladeBuilder\Modules\Auth\Auth::class,
         'url' => '/admin/auth',
         'username' => 'admin',
@@ -65,7 +65,7 @@ return [
      |
      */
     'website_manager' => [
-        'use_website_manager' => true,
+        'use_website_manager' => FALSE,
         'class' => \BladeBuilder\Modules\WebsiteManager\WebsiteManager::class,
         'url' => '/admin'
     ],
@@ -92,9 +92,9 @@ return [
      */
     'pagebuilder' => [
         'class' => \BladeBuilder\Modules\GrapesJS\PageBuilder::class,
-        'url' => '/admin/pagebuilder',
+        'url' => '/astral-cms-builder',
         'actions' => [
-            'back' => '/admin'
+            'back' => '/' . env('ASTRALCMS_ADMIN_PATH', 'admin')
         ]
     ],
 
